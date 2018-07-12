@@ -64,11 +64,13 @@ def create_parser(subparsers=None):
 
     return parser
 
+ph_re = re.compile(r"｟.*?｠")
 def get_vocabulary(fobj, is_dict=False):
     """Read text and return dictionary that encodes vocabulary
     """
     vocab = Counter()
     for i, line in enumerate(fobj):
+	line = ph_re.sub(line, "")
         if is_dict:
             try:
                 word, count = line.strip('\r\n ').split(' ')
